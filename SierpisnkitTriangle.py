@@ -28,18 +28,18 @@ class SierpisnkitTriangle:
             self.points = [(random.randint(0, 1000), random.randint(0, 1000))
                            for i in range(3)]
             self.screen = pygame.display.set_mode((1000, 1000))
+        self.screen.fill((255, 255, 255))
         self.color = (0, 0, 0)
         self.linewidth = 3
         self.pointWidth = 1
+        pygame.draw.lines(self.screen, self.color,
+                          True, self.points, self.linewidth)
         self.inPoints = [point_on_triangle2(self.points)]
 
     def draw(self):
-        self.screen.fill((255, 255, 255))
         self.drawNewPoint()
-        pygame.draw.lines(self.screen, self.color,
-                          True, self.points, self.linewidth)
-        for point in self.inPoints:
-            pygame.draw.circle(self.screen, self.color, point, self.pointWidth)
+        pygame.draw.circle(self.screen, self.color,
+                           self.inPoints[-1], self.pointWidth)
 
     def drawNewPoint(self):
         i = random.randint(0, 2)
@@ -53,7 +53,6 @@ class SierpisnkitTriangle:
                     self.done = True
             self.draw()
             pygame.display.flip()
-            self.clock.tick(0)
 
 
 if __name__ == "__main__":
