@@ -14,17 +14,18 @@ def point_on_triangle2(points):
 
 
 class SierpisnkitTriangle:
-    def __init__(self, config=1):
+    def __init__(self, config=3, drawRate=100):
         pygame.init()
         self.clock = pygame.time.Clock()
         self.done = False
+        self.drawRate = drawRate
         if config == 1:
             self.screen = pygame.display.set_mode((1000, 1000))
             self.points = [(500, 100), (200, 900), (800, 900)]
         elif config == 2:
             self.points = [(0, 0), (0, 1000), (1800, 500)]
             self.screen = pygame.display.set_mode((1800, 1000))
-        elif config == 3:
+        else:
             self.points = [(random.randint(0, 1000), random.randint(0, 1000))
                            for i in range(3)]
             self.screen = pygame.display.set_mode((1000, 1000))
@@ -51,11 +52,12 @@ class SierpisnkitTriangle:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.done = True
-            self.draw()
+            for _ in range(self.drawRate):
+                self.draw()
             pygame.display.flip()
+        pygame.quit()
 
 
 if __name__ == "__main__":
-    app = SierpisnkitTriangle(3)
+    app = SierpisnkitTriangle(2)
     app.run()
-    pygame.quit()
